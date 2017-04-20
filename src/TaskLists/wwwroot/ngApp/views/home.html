@@ -1,0 +1,97 @@
+<div class="toplevel">
+    <table>
+        <tr class="tablerows">
+            <td class="tablecells" ng-repeat="tasklist in controller.tasklists">
+                <p class="listname">{{tasklist.name}}</p>
+                <a class="addlink" data-toggle="modal" ng-click="controller.newTask(tasklist.id)" data-target="#AddTask">Add Task</a>
+                <div class="listdiv" style="height:{{tasklist.divheight}}">
+                    <div class="taskbox" ng-repeat="task in tasklist.tasks" ng-click="controller.showInfo(task.id, task.name, task.description, task.status)" data-toggle="modal" data-target="#taskinfo">
+                        <p class="taskheader">{{task.name}}</p>
+                        <p class="statusdot {{task.statuscolor}}"></p>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="addlistcell">
+                    <a class="addlink" data-toggle="modal" data-target="#AddList">Add New List</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="modal" id="taskinfo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>{{controller.taskName}}</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Task Description: </h4>
+                <textarea rows="5" cols="75" ng-model="controller.taskDescription"></textarea>
+                <br />
+                <h4>
+                    Status: 
+                    <select name="status" class="selectbox" ng-model="controller.taskStatus">
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </h4>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="controller.saveUpdate()" data-dismiss="modal">Update</button>
+                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                <button class="btn btn-danger" type="button" ng-click="controller.deleteTask()" data-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="AddTask">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Task</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Task Name: </h4>
+                <input type="text" width="24" ng-model="controller.taskName" />
+                <br />
+                <h4>Task Description: </h4>
+                <textarea rows="5" cols="75" ng-model="controller.taskDescription"></textarea>
+                <br />
+                <h4>
+                    Status:
+                    <select name="status" class="selectbox" ng-model="controller.taskStatus">
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </h4>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="controller.saveUpdate()" data-dismiss="modal">Update</button>
+                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="AddList">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Task List</h3>
+            </div>
+            <div class="modal-body">
+                <h4>List Name: </h4>
+                <input type="text" width="24" ng-model="controller.taskListName" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="controller.addList()" data-dismiss="modal">Add List</button>
+                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
